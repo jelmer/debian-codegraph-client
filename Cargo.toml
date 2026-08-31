@@ -1,5 +1,5 @@
 [package]
-name = "cgcl"
+name = "debian-codegraph-client"
 version = "0.1.0"
 edition = "2021"
 description = "Symbolize a coredump and open it in codegraph.jelmer.uk"
