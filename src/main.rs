@@ -7,9 +7,9 @@
 //! URL fragment of a codegraph.jelmer.uk symbolize link.
 
 use anyhow::{Context, Result};
-use cgcl::dpkg::Dpkg;
-use cgcl::{Frame, OsInfo, Report};
 use clap::Parser;
+use debian_codegraph_client::dpkg::Dpkg;
+use debian_codegraph_client::{Frame, OsInfo, Report};
 use std::path::{Path, PathBuf};
 
 #[derive(Parser, Debug)]
@@ -48,7 +48,7 @@ struct Args {
 fn main() -> Result<()> {
     let args = Args::parse();
 
-    let gdb = cgcl::gdb::analyze(&args.core, args.executable.as_deref())
+    let gdb = debian_codegraph_client::gdb::analyze(&args.core, args.executable.as_deref())
         .context("gdb analysis failed")?;
 
     let mut report = Report::new();
@@ -113,7 +113,7 @@ fn main() -> Result<()> {
     if args.payload_only {
         println!("{}", report.encode()?);
     } else {
-        let url = cgcl::symbolize_url(&args.base_url, &report)?;
+        let url = debian_codegraph_client::symbolize_url(&args.base_url, &report)?;
         println!("{url}");
         if args.open {
             open_in_browser(&url)?;
